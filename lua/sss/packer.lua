@@ -48,5 +48,13 @@ return require('packer').startup(function(use)
             {'rafamadriz/friendly-snippets'},
         }
     }
+
+
+    -- Startup screen
+    use {
+      "goolord/alpha-nvim",
+    }
+
+
 end)
 
