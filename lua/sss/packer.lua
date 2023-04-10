@@ -10,21 +10,29 @@ return require('packer').startup(function(use)
         -- or                            , branch = '0.1.x',
         requires = { {'nvim-lua/plenary.nvim'} }
     }
-    --	use {'morhetz/gruvbox', config = function() vim.cmd.colorscheme("gruvbox") end }
-    use({
-        'rose-pine/neovim',
-        as = 'rose-pine',
-        config = function()
-            vim.cmd('colorscheme rose-pine')
-        end
-    })
-    --	  use { "ellisonleao/gruvbox.nvim" }
+    -- use {'morhetz/gruvbox', config = function() vim.cmd.colorscheme("gruvbox") end }
+    -- use({
+    --     'rose-pine/neovim',
+    --     as = 'rose-pine',
+    --     config = function()
+    --         vim.cmd('colorscheme rose-pine')
+    --     end
+    -- })
+    -- use { "ellisonleao/gruvbox.nvim" }
+    use ('navarasu/onedark.nvim')
 
     use( 'nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
     use( 'nvim-treesitter/playground')
     use( 'ThePrimeagen/harpoon')
     use('mbbill/undotree')
     use('tpope/vim-fugitive')
+
+    use {
+    'numToStr/Comment.nvim',
+    config = function()
+        require('Comment').setup()
+    end
+    }
 
     use {
         'VonHeikemen/lsp-zero.nvim',
