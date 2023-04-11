@@ -27,6 +27,15 @@ return require('packer').startup(function(use)
     end
     }
 
+    -- Terminal
+    use {
+      "akinsho/toggleterm.nvim",
+      config = function()
+        require("toggleterm").setup()
+      end,
+    }
+
+
     use {
         'VonHeikemen/lsp-zero.nvim',
         branch = 'v1.x',
