@@ -6,3 +6,4 @@ vim.keymap.set('n', '<leader>ps',function()
 end)
 
 vim.keymap.set('n', 'gr', builtin.lsp_references, {desc = '[G]oto to [R]eference'})
+vim.keymap.set('n', '<leader>fb', builtin.buffers, {desc = '[f]ind []buffer'})
