@@ -16,23 +16,23 @@ return require('packer').startup(function(use)
     use('tpope/vim-fugitive')
 
     use {
-      'nvim-lualine/lualine.nvim',
-      requires = { 'nvim-tree/nvim-web-devicons', opt = true }
+        'nvim-lualine/lualine.nvim',
+        requires = { 'nvim-tree/nvim-web-devicons', opt = true }
     }
 
     use {
-    'numToStr/Comment.nvim',
-    config = function()
-        require('Comment').setup()
-    end
+        'numToStr/Comment.nvim',
+        config = function()
+            require('Comment').setup()
+        end
     }
-
+    use( 'ThePrimeagen/vim-be-good')
     -- Terminal
     use {
-      "akinsho/toggleterm.nvim",
-      config = function()
-        require("toggleterm").setup()
-      end,
+        "akinsho/toggleterm.nvim",
+        config = function()
+            require("toggleterm").setup()
+        end,
     }
 
 
@@ -61,9 +61,12 @@ return require('packer').startup(function(use)
 
     -- Startup screen
     use {
-      "goolord/alpha-nvim",
+        "goolord/alpha-nvim",
     }
-
+    use {
+        'glacambre/firenvim',
+        run = function() vim.fn['firenvim#install'](0) end
+    }
 
 end)
 
