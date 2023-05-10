@@ -13,4 +13,23 @@ mason will require node > 16, I used [nvm](https://github.com/nvm-sh/nvm)
   nvm install node 16.3.0
   nvm use 16
   ```
+don't forget to copy that packer thing!!!
+```
+git clone --depth 1 https://github.com/wbthomason/packer.nvim\
+ ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+ ```
+## window user
+I had a lot of trouble figuring out why my packer on window was not working with weird ass error such as those `trailling ^M` or whatever
+see here (https://stackoverflow.com/questions/9206797/error-trailing-characters-in-ubuntu)
+ultimatly it boiled down to git config autocrlf set to true!
+Check your git config!
+```
+> git config --list
+```
+if you see that little fucker set to true! You might deal with weird errors
+You might have to change it to false
+```
+git config --global core.autocrlf false
+```
+But then your git will give you shit ton of file change! I dont have solution for this...May need to toggle it constantly for now.
 
