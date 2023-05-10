@@ -13,4 +13,8 @@ mason will require node > 16, I used [nvm](https://github.com/nvm-sh/nvm)
   nvm install node 16.3.0
   nvm use 16
   ```
-
+don't forget to copy that packer thing!!!
+```
+git clone --depth 1 https://github.com/wbthomason/packer.nvim\
+ ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+ ```
