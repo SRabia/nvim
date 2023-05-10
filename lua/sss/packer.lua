@@ -5,7 +5,13 @@ return require('packer').startup(function(use)
     use ('wbthomason/packer.nvim')
     use {'nvim-telescope/telescope.nvim', tag = '0.1.1',
         -- or                            , branch = '0.1.x',
-        requires = { {'nvim-lua/plenary.nvim'} }
+        requires = {
+            {'nvim-lua/plenary.nvim'},
+            {'nvim-telescope/telescope-live-grep-args.nvim'}
+        },
+        config = function()
+            require("telescope").load_extension("live_grep_args")
+        end
     }
     use ('navarasu/onedark.nvim')
 
@@ -66,6 +72,17 @@ return require('packer').startup(function(use)
     use {
         'glacambre/firenvim',
         run = function() vim.fn['firenvim#install'](0) end
+    }
+
+    -- Auto pairs
+    use {
+      "windwp/nvim-autopairs",
+      -- opt = true,
+      -- event = "InsertEnter",
+      -- module = { "nvim-autopairs.completion.cmp", "nvim-autopairs" },
+      config = function()
+        require("nvim-autopairs").setup()
+      end,
     }
 
 end)
