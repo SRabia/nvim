@@ -50,3 +50,8 @@ vim.keymap.set("n", "<leader>hs", function()
     vim.o.hlsearch = not vim.o.hlsearch
     print("Search highlighting is", vim.o.hlsearch)
 end)
+-- :%s/\(\d\)\s*,\s*/\1, /g 
+
+vim.keymap.set("v", "<leader>00", [[:s/\(\x*\)\s*,\s*/\1, /g ]])
+vim.keymap.set("v", "<leader>hh", [[:s/\(\x*\)\s*,\s*/0x\1, /g ]])
+
