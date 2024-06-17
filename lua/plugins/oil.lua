@@ -3,9 +3,6 @@ return {
 	opts = {},
 	config = function()
 		require("oil").setup({
-			is_always_hidden = function(name, bufnr)
-				return true
-			end,
 			use_default_keymaps = false,
 			keymaps = {
 				["g?"] = "actions.show_help",
@@ -25,6 +22,15 @@ return {
 				["g."] = "actions.toggle_hidden",
 				["g\\"] = "actions.toggle_trash",
 			},
+			view_options = {
+				show_hidden = true,
+				is_hidden_file = function(name, bufnr)
+					return vim.startswith(name, ".")
+				end,
+			},
+			is_always_hidden = function(name, bufnr)
+				return false
+			end,
 		})
 		vim.keymap.set("n", "<leader>pv", "<CMD>Oil<CR>", { desc = "Open parent directory with oil" })
 	end,
