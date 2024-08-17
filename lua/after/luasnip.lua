@@ -20,7 +20,6 @@ typedef struct <a>_s
 
 ]]
 
-
 local C_TEMPLATE_HEADER_CODE = [[
 #ifndef _<G>_H_
 #define _<G>_H_
@@ -71,150 +70,144 @@ uint8_t <a>[<n>] = {<c>, <r>}
 local C_BUFF = [[
 uint8_t <a>[<n>] = {<c>}
 ]]
-local function repeatElement(
-    args,
-    parent,
-    user_args
-    )
-    local rep = tonumber(args[1][1])
-    if rep == nil then
-        return "nil"
-    end
-    if rep ~= math.floor(rep)then
-        return "not"
-    end
+local function repeatElement(args, parent, user_args)
+	local rep = tonumber(args[1][1])
+	if rep == nil then
+		return "nil"
+	end
+	if rep ~= math.floor(rep) then
+		return "not"
+	end
 
-    local result = ""
-    for i = 1, rep -2, 1 do
-       result = result .. args[2][1] .. ', '
-    end
-    result = result .. args[2][1]
+	local result = ""
+	for i = 1, rep - 2, 1 do
+		result = result .. args[2][1] .. ", "
+	end
+	result = result .. args[2][1]
 
-    return result
+	return result
 end
 
 local function firstUpper(
-    args,     -- text from i(2) in this example i.e. { { "456" } }
-    parent,   -- parent snippet or parent node
-    user_args -- user_args from opts.user_args 
-    )
-    local up = '' .. args[1][1] .. user_args .. ''
-    return up:gsub("^%l", string.upper)
+	args, -- text from i(2) in this example i.e. { { "456" } }
+	parent, -- parent snippet or parent node
+	user_args -- user_args from opts.user_args
+)
+	local up = "" .. args[1][1] .. user_args .. ""
+	return up:gsub("^%l", string.upper)
 end
 
 local function Upper(
-    args,     -- text from i(2) in this example i.e. { { "456" } }
-    parent,   -- parent snippet or parent node
-    user_args -- user_args from opts.user_args 
-    )
-    local up = '' .. args[1][1] .. user_args .. ''
-    return up:upper()
+	args, -- text from i(2) in this example i.e. { { "456" } }
+	parent, -- parent snippet or parent node
+	user_args -- user_args from opts.user_args
+)
+	local up = "" .. args[1][1] .. user_args .. ""
+	return up:upper()
 end
 
-
-
-ls.add_snippets('all', {
-    s("rrr", c(1, {
-        i(vim.fn.getreg('%')),
-        t(vim.fn.getreg('/')),
-    })),
-    postfix(".bk[", {
-        l("[" .. l.POSTFIX_MATCH .. "]"),
-    }),
-    postfix(".bk{", {
-        l("{" .. l.POSTFIX_MATCH .. "}"),
-    }),
-} )
-
-
-ls.add_snippets('wiki', {
-    s("LaDaaaaateKoliss", {
-        extras.partial(os.date, " %d-%B-%Y(%x)"),
-    })
-} )
-
-ls.add_snippets("c", {
-    -- important! fmt does not return a snippet, it returns a table of nodes.
-    s("template_source_code", fmt(C_TEMPLATE_SOURCE_CODE , {
-            a = i(1, "object"),
-            b = f(firstUpper, {1}, {user_args = {""}}),
-            c = i(3, "void"),
-        }, {
-            repeat_duplicates = true,
-            delimiters = "<>",
-    })),
-    s("template_header_code", fmt(C_TEMPLATE_HEADER_CODE , {
-            a = i(1, "object"),
-            b = f(firstUpper, {1}, {user_args = {""}}),
-            G = f(Upper, {1}, {user_args = {""}}),
-            p = i(2, "void"),
-            n = i(3), -- TODO: make it auto
-        }, {
-            repeat_duplicates = true,
-            delimiters = "<>",
-    })),
-    s("union_struct", fmt(C_UNION_STRUCT , {
-            a = i(1, "full"),
-            n = i(2, "10"),
-            f = i(3, "field"),
-            f2 = i(4, "field2"),
-            b = i(5, "type"),
-        }, {
-            repeat_duplicates = true,
-            delimiters = "<>",
-    })),
-    s("enum2", fmt(C_ENUM, {
-            V = i(1, "FIELD"),
-            b = i(2, "enumType"),
-            B = f(Upper, {2}, {user_args = {""}}),
-        }, {
-            repeat_duplicates = true,
-            delimiters = "<>",
-    })),
-    s("struct2", fmt(C_STRUCT, {
-            a = i(1, "typeStruct"),
-            b = f(firstUpper, {1}, {user_args = {""}}),
-        }, {
-            repeat_duplicates = true,
-            delimiters = "<>",
-    })),
-    s("bufrep", fmt(C_BUFF_REP, {
-            a = i(1, 'buf'),
-            n = i(2, '10'),
-            c = i(3, '1'),
-            r = f(repeatElement, {2, 3}, {user_args = {""}}),
-        }, {
-            repeat_duplicates = true,
-            delimiters = "<>",
-    })),
-    s("buf", fmt(C_BUFF, {
-            a = i(1, 'buf'),
-            n = i(2, '10'),
-            c = i(3, '1'),
-        }, {
-            repeat_duplicates = true,
-            delimiters = "<>",
-    })),
-    s("par_change", {
-        c(1, {
-            sn(nil, { t("("), r(1, "user_text"), t(")") }),
-            sn(nil, { t("["), r(1, "user_text"), t("]") }),
-            sn(nil, { t("{"), r(1, "user_text"), t("}") }),
-        }),
-    }, {
-        stored = {
-            -- key passed to restoreNodes.
-            ["user_text"] = i(1, "default_text")
-        }
-    }),
-    postfix(".hexbyte", {
-        l(l.POSTFIX_MATCH:gsub("..", function(ch)
-            if ch:match("^%x%x$") then
-                return string.format("0x%s,", ch)
-            else
-                return ch
-            end
-        end):sub(1, -2))
-    })
+ls.add_snippets("all", {
+	s(
+		"rrr",
+		c(1, {
+			i(vim.fn.getreg("%")),
+			t(vim.fn.getreg("/")),
+		})
+	),
+	postfix(".bk[", {
+		l("[" .. l.POSTFIX_MATCH .. "]"),
+	}),
+	postfix(".bk{", {
+		l("{" .. l.POSTFIX_MATCH .. "}"),
+	}),
 })
 
+ls.add_snippets("wiki", {
+	s("LaDaaaaateKoliss", {
+		extras.partial(os.date, " %d-%B-%Y(%x)"),
+	}),
+})
+
+ls.add_snippets("c", {
+	-- important! fmt does not return a snippet, it returns a table of nodes.
+	s(
+		"union_struct",
+		fmt(C_UNION_STRUCT, {
+			a = i(1, "full"),
+			n = i(2, "10"),
+			f = i(3, "field"),
+			f2 = i(4, "field2"),
+			b = i(5, "type"),
+		}, {
+			repeat_duplicates = true,
+			delimiters = "<>",
+		})
+	),
+	s(
+		"enum2",
+		fmt(C_ENUM, {
+			V = i(1, "FIELD"),
+			b = i(2, "enumType"),
+			B = f(Upper, { 2 }, { user_args = { "" } }),
+		}, {
+			repeat_duplicates = true,
+			delimiters = "<>",
+		})
+	),
+	s(
+		"struct2",
+		fmt(C_STRUCT, {
+			a = i(1, "typeStruct"),
+			b = f(firstUpper, { 1 }, { user_args = { "" } }),
+		}, {
+			repeat_duplicates = true,
+			delimiters = "<>",
+		})
+	),
+	s(
+		"bufrep",
+		fmt(C_BUFF_REP, {
+			a = i(1, "buf"),
+			n = i(2, "10"),
+			c = i(3, "1"),
+			r = f(repeatElement, { 2, 3 }, { user_args = { "" } }),
+		}, {
+			repeat_duplicates = true,
+			delimiters = "<>",
+		})
+	),
+	s(
+		"buf",
+		fmt(C_BUFF, {
+			a = i(1, "buf"),
+			n = i(2, "10"),
+			c = i(3, "1"),
+		}, {
+			repeat_duplicates = true,
+			delimiters = "<>",
+		})
+	),
+	s("par_change", {
+		c(1, {
+			sn(nil, { t("("), r(1, "user_text"), t(")") }),
+			sn(nil, { t("["), r(1, "user_text"), t("]") }),
+			sn(nil, { t("{"), r(1, "user_text"), t("}") }),
+		}),
+	}, {
+		stored = {
+			-- key passed to restoreNodes.
+			["user_text"] = i(1, "default_text"),
+		},
+	}),
+	postfix(".hexbyte", {
+		l(l.POSTFIX_MATCH
+			:gsub("..", function(ch)
+				if ch:match("^%x%x$") then
+					return string.format("0x%s,", ch)
+				else
+					return ch
+				end
+			end)
+			:sub(1, -2)),
+	}),
+})
