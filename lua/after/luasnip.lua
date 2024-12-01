@@ -199,6 +199,7 @@ ls.add_snippets("c", {
 			["user_text"] = i(1, "default_text"),
 		},
 	}),
+    -- this one simply append 0x to buffer doesn't convert
 	postfix(".hexbyte", {
 		l(l.POSTFIX_MATCH
 			:gsub("..", function(ch)
@@ -211,3 +212,5 @@ ls.add_snippets("c", {
 			:sub(1, -2)),
 	}),
 })
+
+-- TODO:maybe rust snippet too? buffers hexbyte mostly
