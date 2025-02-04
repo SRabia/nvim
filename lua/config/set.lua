@@ -30,4 +30,9 @@ vim.opt.isfname:append("@-@")
 
 vim.opt.updatetime = 50
 
-vim.opt.colorcolumn = "80"
+vim.opt.colorcolumn = "100"
+
+
+vim.opt.viewoptions = "folds" -- Save only fold information in view files
+vim.cmd([[autocmd BufWinLeave * silent! mkview]]) -- Save the view when leaving a buffer
+vim.cmd([[autocmd BufWinEnter * silent! loadview]]) -- Load the view when re-entering a buffer

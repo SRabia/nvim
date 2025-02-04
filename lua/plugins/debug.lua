@@ -85,7 +85,7 @@ return {
     dap.configurations.rust = {
         {
             name = "Launch",
-            type = "codlldb",
+            type = "gdb",
             request = "launch",
             program = function ()
                 local path = vim.fn.input({
