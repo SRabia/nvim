@@ -13,6 +13,9 @@ return {
 							checkOnSave = {
 								command = "clippy",
 							},
+                            check = {
+                                allTargets = false
+                            },
 							diagnostics = {
 								enable = true,
 							},
