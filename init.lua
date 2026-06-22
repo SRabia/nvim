@@ -13,5 +13,10 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
     })
 end
 vim.opt.rtp:prepend(lazypath)
+-- ============================================================
+-- SECTION 9: TREESITTER
+-- Parser installation, syntax highlighting, folds, indentation
+-- ============================================================
+
 require("lazy").setup("plugins")
 require("after.luasnip")
